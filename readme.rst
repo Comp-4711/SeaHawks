@@ -1,3 +1,5 @@
+Hello, I'm Shane
+
 ###################
 What is CodeIgniter
 ###################
