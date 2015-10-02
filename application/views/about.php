@@ -1,11 +1,7 @@
-<h1>About This Site</h1>
-<p>This is a really simple image gallery, intended as more than a "hello world" example'
-    to be implemented using different MVC frameworks, so they can be compared.</p>
-<p>This site started out as the "Simple Gallery" from <a href="http://bryantsmith.com" target="_blank">Bryant Smith</a>.</p>
-<h2>The Images</h2>
-<p>Images are stored in a "data" folder inside the document root, and they are described in an "images" table, for
-    which a SQL script is provided.</p>
-<h2>Supporting Technologies</h2>
-<p>The website uses the jquery Javascript framework, so that it can also use the jquery lightbox plugin.</p>
-<h2>The Story</h2>
-<p>This website was created for the Spring 2014 session of ACIT2910, at <a href="http://www.bcit.ca" target="_blank">BCIT</a>.</p>
+<h1>About the SeaHawks Web Application</h1>
+<p>This web application should be interpreted as a purely academic project. 
+    The information on this website is provided without any representations or warranties, express or implied.</p>
+<p>Without prejudice to the generality of the foregoing paragraph, we do not warrant 
+    that the information on this website will be constantly available, or available at all; or
+that the information on this website is complete, true, accurate, up-to-date, or non-misleading.</p>
+<p>Any use of names and/or media falls under the fair use guidelines. Any complaints should be forwarded to jim_parry@bcit.ca</p>
