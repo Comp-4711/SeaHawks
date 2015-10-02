@@ -17,3 +17,12 @@
 .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
     color: #9E9E9E;
 }
+
+.table thead{
+    background-color: #0e0e52;
+    color: white;
+}
+
+.table .tablesub{
+    background-color: #4b8d27;
+}
