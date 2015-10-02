@@ -20,11 +20,14 @@ class Roster extends Application {
 	 */
 	public function index()
 	{
+		// Retrieve players from model
 		$pix = $this->players->all();
 
+		// Parse player properties into individual cells to render table
 		foreach ($pix as $picture)
 			$cells[] = $this->parser->parse('_cell', (array) $picture, true);
 
+		// Set table parameters
 		$this->load->library('table');
 		$parms = array(
 			'table_open' => '<table class="gallery">',
@@ -33,6 +36,7 @@ class Roster extends Application {
 		);
 		$this->table->set_template($parms);
 
+		// Render the table
 		$rows = $this->table->make_columns($cells, 1);
 		$this->data['thetable'] = $this->table->generate($rows);
 		$this->data['pagebody']= 'roster';

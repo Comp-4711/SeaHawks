@@ -11,8 +11,9 @@ class Application extends CI_Controller {
     protected $id;		  // identifier for our content
     protected $choices = array(// our menu navbar
         'Home' => '/',
-        'Gallery' => '/gallery',
-        'About' => '/about'
+        'About' => '/about',
+        'Roster' => '/roster',
+        'League' => '/league'
     );
 
     /**
@@ -23,7 +24,7 @@ class Application extends CI_Controller {
     {
         parent::__construct();
         $this->data = array();
-        $this->data['title'] = 'Demo Contact Manager';
+        $this->data['title'] = 'Seahawks Web App';
     }
 
     /**

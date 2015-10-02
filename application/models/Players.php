@@ -11,7 +11,10 @@ class Players extends CI_Model {
     function __construct() {
         parent::__construct();
     }
-    
+
+    // Set up the mock data for the team roster, hardcoded for A1
+    // Each player has a name, associated image, position and biography
+    // Returns an array of all team members on the roster
     function all() {
         $members = array(
             array(

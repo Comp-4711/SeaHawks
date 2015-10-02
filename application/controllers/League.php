@@ -4,6 +4,7 @@
             parent::__construct();
         }
 
+        // Use the Teams model to retrieve league data and pass it to the league view
         function index(){
             $this->data['pagebody'] = 'league';
             $this->data['afce'] = $this->teams->getRegion("AFC","east");

@@ -1,5 +1,6 @@
 <?php
     class Teams extends CI_Model {
+        // Set up league teams info
         protected $teams = array(
             array("name"=>"New England Patriots", "conference" => "AFC", "region"=>"east", "win"=>3, "loss"=>0, "tie"=>0),
             array("name"=>"Buffalo Bills", "conference" => "AFC", "region"=>"east", "win"=>2, "loss"=>1, "tie"=>0),
@@ -38,10 +39,12 @@
             parent::__construct();
         }
 
+        // Returns all teams
         function all(){
             return $this->teams;
         }
 
+        // Returns all teams associated with a passed in conference and region
         function getRegion($conference, $region){
             $teams = array();
             foreach($this->teams as $team){
@@ -53,6 +56,7 @@
             return $teams;
         }
 
+        // Get team by name
         function getTeam($name){
             foreach($this->teams as $team){
                 if($team['name'] == $name){
