@@ -6,7 +6,11 @@
  * Time: 11:48 PM
  */
 ?>
-<a href="/data/{filename}" data-lightbox="gallery"
-   data-title="{title} ... Posted {uploaded} by {uploader}, in {category}">
-    <img src="/data/thumb/{filename}">
-</a>
+<tr>
+    <td><img src="/img/roster/{filename}" width="200" height="200"></td>
+    <td>
+        <h2>{name}</h2>
+        {position}
+        <p>{bio}</p>
+    </td>
+</tr>
