@@ -11,7 +11,7 @@
     {afce}
     </thead>
         <tr>
-            <td>{name}</td>
+            <td title="{teamcode}">{name}</td>
             <td>{win}</td>
             <td>{loss}</td>
             <td>{tie}</td>
@@ -27,7 +27,7 @@
     </thead>
     {afcn}
         <tr>
-            <td>{name}</td>
+            <td title="{teamcode}">{name}</td>
             <td>{win}</td>
             <td>{loss}</td>
             <td>{tie}</td>
@@ -43,7 +43,7 @@
     </thead>
     {afcs}
         <tr>
-            <td>{name}</td>
+            <td title="{teamcode}">{name}</td>
             <td>{win}</td>
             <td>{loss}</td>
             <td>{tie}</td>
@@ -59,7 +59,7 @@
     </thead>
     {afcw}
         <tr>
-            <td>{name}</td>
+            <td title="{teamcode}">{name}</td>
             <td>{win}</td>
             <td>{loss}</td>
             <td>{tie}</td>
@@ -76,7 +76,7 @@
     </thead>
     {nfce}
         <tr>
-            <td>{name}</td>
+            <td title="{teamcode}">{name}</td>
             <td>{win}</td>
             <td>{loss}</td>
             <td>{tie}</td>
@@ -92,7 +92,7 @@
     </thead>
     {nfcn}
         <tr>
-            <td>{name}</td>
+            <td title="{teamcode}">{name}</td>
             <td>{win}</td>
             <td>{loss}</td>
             <td>{tie}</td>
@@ -108,7 +108,7 @@
     </thead>
     {nfcs}
         <tr>
-            <td>{name}</td>
+            <td title="{teamcode}">{name}</td>
             <td>{win}</td>
             <td>{loss}</td>
             <td>{tie}</td>
@@ -124,7 +124,7 @@
     </thead>
     {nfcw}
         <tr>
-            <td>{name}</td>
+            <td title="{teamcode}">{name}</td>
             <td>{win}</td>
             <td>{loss}</td>
             <td>{tie}</td>
