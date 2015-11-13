@@ -1,5 +1,5 @@
 <?php
-    class Teams extends CI_Model {
+    class Teams extends MY_Model {
         // Set up league teams info
         protected $teams = array(
             array("teamcode" => "NE", "name"=>"New England Patriots", "conference" => "AFC", "region"=>"East", "win"=>3, "loss"=>0, "tie"=>0),
