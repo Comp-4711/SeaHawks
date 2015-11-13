@@ -7,10 +7,10 @@
  */
 ?>
 <tr>
-    <td><img src="/img/roster/{filename}" width="200" height="200"></td>
+    <td><img src="/img/roster/{image_name}" width="200" height="200"></td>
     <td>
-        <h2>{name}</h2>
+        <h2>#{jersey} {last_name}, {first_name}</h2>
         {position}
-        <p>{bio}</p>
+        <p>{description}</p>
     </td>
 </tr>

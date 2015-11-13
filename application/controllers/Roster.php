@@ -21,7 +21,7 @@ class Roster extends Application {
 	public function index()
 	{
 		// Retrieve players from model
-		$pix = $this->players->all();
+		$pix = $this->players->allByName();
 
 		// Parse player properties into individual cells to render table
 		foreach ($pix as $picture)
