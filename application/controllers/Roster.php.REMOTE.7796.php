@@ -74,24 +74,8 @@ class Roster extends Application {
                 );
                 $this->table->set_template($parms);
 
-<<<<<<< HEAD
-		// Render the table
-		$rows = $this->table->make_columns($cells, 1);
-		$this->data['thetable'] = $this->table->generate($rows);
-		if($this->session->editmode){
-			$this->data['editmode'] = "Turn off Edit Mode";
-			$this->data['addbutton'] = $this->load->view('_addplayer', '', TRUE);
-		} else {
-			$this->data['editmode'] = "Turn on Edit Mode";
-			$this->data['addbutton'] = "";
-		}
-		$this->data['pagebody']= 'roster';
-		$this->render();
-	}
-=======
                 $rows = $this->table->make_columns($cells, 3);
             }
             return $rows;
         }
->>>>>>> 810492b67fcea95f54f776f73d2933b8ebb12bed
 }
