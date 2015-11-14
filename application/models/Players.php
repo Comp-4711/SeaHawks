@@ -17,21 +17,20 @@ class Players extends MY_Model {
     // Returns an array of all team members on the roster
     function allByJersey() {
         $this->db->order_by('jersey', 'asc');
-        $members = $this->db->get('roster');
+        $members = $this->db->get('players');
         return $members->result_array();
     }
     
     function allByName() {
         $this->db->order_by('last_name', 'asc');
-        $members = $this->db->get('roster');
+        $members = $this->db->get('players');
         return $members->result_array();
     }
     
     function allByPosition() {
         $this->db->order_by('position', 'asc');
-        $members = $this->db->get('roster');
+        $members = $this->db->get('players');
         return $members->result_array();
     }
-
-
+    
 }
