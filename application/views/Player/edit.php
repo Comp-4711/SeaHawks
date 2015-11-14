@@ -23,8 +23,13 @@
             <option value="Guard Tackle">Guard Tackle</option>
             <option value="Tight end">Tight end</option>
         </select>
+
         <input type="number" name="jerseyNumber" class="form-group"/>
     </label>
-
+    <div class="row">
+        <a href="/player/edit_confirm/{player_num}" class="btn btn-large btn-success">Save</a>
+        <a href="/player/cancel/{order_num}" class="btn btn-large btn-primary">Cancel</a>
+        <a href="/player/delete/{order_num}" class="btn btn-large btn-danger">Delete</a>
+    </div>
 
 </form>

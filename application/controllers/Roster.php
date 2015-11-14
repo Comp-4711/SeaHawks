@@ -39,6 +39,13 @@ class Roster extends Application {
 		// Render the table
 		$rows = $this->table->make_columns($cells, 1);
 		$this->data['thetable'] = $this->table->generate($rows);
+		if($this->session->editmode){
+			$this->data['editmode'] = "Turn off Edit Mode";
+			$this->data['addbutton'] = $this->load->view('_addplayer', '', TRUE);
+		} else {
+			$this->data['editmode'] = "Turn on Edit Mode";
+			$this->data['addbutton'] = "";
+		}
 		$this->data['pagebody']= 'roster';
 		$this->render();
 	}

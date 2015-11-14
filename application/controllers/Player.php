@@ -46,7 +46,16 @@ class Player extends Application
             $this->session->editmode = 0;
         } else {
             $this->session->editmode = 1;
+
         }
-        $this->data['editmode'] = $this->session->editmode ? "Turn on Edit Mode" : "Turn off Edit Mode";
+        redirect('/roster');
+    }
+
+    function handleplayer($player_num) {
+        if($this->session->editmode == 1){
+            redirect('/player/edit/' . $player_num);
+        } else {
+            redirect('/player/view/' . $player_num);
+        }
     }
 }
