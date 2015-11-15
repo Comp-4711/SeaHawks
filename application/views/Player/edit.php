@@ -1,14 +1,17 @@
 <h1>Edit Player</h1>
 
-<form type="Post" method="./" enctype="multipart/form-data">
-    <label>Player Name
-        <input type="text" name="playerName" class="form-group" />
+<form method="Post" action="/player/edit_confirm" name="editForm" enctype="multipart/form-data">
+    <label>First Name
+        <input type="text" name="firstname" class="form-group" value="{first_name}"/>
+    </label>
+    <label>Last Name
+        <input type="text" name="lastname" class="form-group" value="{last_name}"/>
     </label>
     <label>Jersey Number
-        <input type="number" name="jerseyNumber" class="form-group"/>
+        <input type="number" name="jerseyNumber" class="form-group"  value="{jersey}"/>
     </label>
     <label>Position
-        <select name="position" class="form-group">
+        <select name="position" class="form-group" id="position">
             <option value="Quarterback">Quarterback</option>
             <option value="Punter">Punter</option>
             <option value="Wide receiver">Wide receiver</option>
@@ -23,13 +26,16 @@
             <option value="Guard Tackle">Guard Tackle</option>
             <option value="Tight end">Tight end</option>
         </select>
-
-        <input type="number" name="jerseyNumber" class="form-group"/>
     </label>
+    <input type="file" name="userfile" class="form-group" />
+    <input type="hidden" name="player_num" value="{player_num}" />
     <div class="row">
-        <a href="/player/edit_confirm/{player_num}" class="btn btn-large btn-success">Save</a>
-        <a href="/player/cancel/{order_num}" class="btn btn-large btn-primary">Cancel</a>
-        <a href="/player/delete/{order_num}" class="btn btn-large btn-danger">Delete</a>
+        <input type="submit" class="btn btn-large btn-success" />
+        <a href="/player/cancel/" class="btn btn-large btn-primary">Cancel</a>
+        <a href="/player/delete/{player_num}" class="btn btn-large btn-danger">Delete</a>
     </div>
 
 </form>
+<script>
+$('#position').val('{position}');
+</script>
