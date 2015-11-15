@@ -1,4 +1,4 @@
-<a id="button" title="button" class="btn btn-default" href="./player/editmode">{editmode}</a>
+<a id="button" title="button" class="btn btn-default" href="/player/editmode">{editmode}</a>
 {addbutton}
 Sort By
 <form action="/player/ordertype" method="post">
