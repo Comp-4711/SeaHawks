@@ -66,7 +66,7 @@ class Player extends Application
         } else if ($type == 'gallery') {
             // Parse player properties into individual cells to render gallery
             foreach ($roster as $player) {
-                $cells[] = $this->parser->parse('_gallerycell', (array)$player, true);
+                $cells[] = $this->parser->parse('_gallerycell', array_merge((array)$player,['handletype' => $this->session->editmode ? 'edit' : 'view']), true);
             }
 
             $parms = array(
@@ -92,16 +92,47 @@ class Player extends Application
     function edit($player_num = null) {
         if($player_num == null)
             redirect('/player/add');
-
+        $this->session->player = $this->players->get($player_num);
+        $this->data['player_num'] = $player_num;
         $this->data['pagebody'] = 'player/edit';
+        $this->data = array_merge($this->data, (array)$this->session->player);
         $this->render();
     }
 
-    function confirm_edit($player_num = null) {
+
+    function edit_confirm() {
+        $player = $this->players->get($this->input->post('player_num'));
+        $config['upload_path'] = './img/roster/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']	= '10000';
+        $config['max_width']  = '1024';
+        $config['max_height']  = '768';
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload())
+        {
+            if($player->image_name == null){
+                $error = array('error' => $this->upload->display_errors());
+                die("upload Error");
+                // $this->load->view('upload_form', $error);
+            }
+        }
+        else
+        {
+            $fileData = $this->upload->data();
+            $player->image_name = $fileData['file_name'];
+        }
+        $player->jersey = $this->input->post('jerseyNumber');
+        $player->first_name = $this->input->post('firstname');
+        $player->last_name = $this->input->post('lastname');
+        $player->position = $this->input->post('position');
+        $this->players->update($player);
         redirect('/player');
     }
 
     function delete($player_num = null) {
+        $this->players->delete($player_num);
         redirect('/player');
     }
 
