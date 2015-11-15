@@ -32,7 +32,6 @@
 {description}
 </textarea>
 </label>
-
     <input type="file" name="userfile" class="form-group" />
     <input type="hidden" name="player_num" value="{player_num}" />
     <div class="row">

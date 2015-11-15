@@ -14,6 +14,7 @@ Sort By
     <input type="submit" value="Go" />
 </form>
 {thetable}
+{links}
 <script>
 $('[name=ordertype]').val('{ordertype}');
 $('[name=layout]').val('{layout}');

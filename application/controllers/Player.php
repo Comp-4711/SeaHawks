@@ -15,7 +15,7 @@ class Player extends Application
     {
         // Set the initial layout parameters
         $this->load->library('table');
-
+        $this->load->library('pagination');
         // Render the display
         $rows = $this->layout($this->session->layout, $this->session->ordertype);
         $this->data['thetable'] = $this->table->generate($rows);
@@ -35,19 +35,33 @@ class Player extends Application
     private function layout($type, $order)
     {
         $cells = array();
+
+        // Set up pagination
+        $config['base_url'] = '/player/index/';
+        $config['total_rows'] = $this->players->playerCount();
+        $config['per_page'] = 12;
+        $config['use_page_numbers'] = TRUE;
+
+        $this->pagination->initialize($config);
+        $this->data['links'] = $this->pagination->create_links();
+
+        $page = ($this->uri->segment(3)) ? ($this->uri->segment(3) - 1) * 12 : 0;
+
+
         // Retrieve players from model based on ordering
         if ($order == 2) {
-            $roster = $this->players->allByPosition();
+            $roster = $this->players->allByPosition($config['per_page'], $page);
         } else if ($order == 3) {
-            $roster = $this->players->allByJersey();
+            $roster = $this->players->allByJersey($config['per_page'], $page);
         } else {
-            $roster = $this->players->allByName();
+            $roster = $this->players->allByName($config['per_page'], $page);
         }
         $handletype = ['handletype' => $this->session->editmode ? 'edit' : 'view'];
         if ($type == 2) {
             // Parse player properties into individual cells to render table
             foreach ($roster as $player) {
                 $cells[] = $this->parser->parse('_tablecell', array_merge((array)$player,$handletype), true);
+
             }
 
             // Set table parameters

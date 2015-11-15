@@ -15,22 +15,50 @@ class Players extends MY_Model {
     // Retrieve all players in the roster, ordered by jersey number
     // Each player has a name, jersey, associated image, position and biography
     // Returns an array of all team members on the roster
-    function allByJersey() {
+    function allByJersey($limit, $start) {
+        $this->db->limit($limit, $start);
+        
         $this->db->order_by('jersey', 'asc');
         $members = $this->db->get('players');
-        return $members->result_array();
+        if($members->num_rows() > 0) {
+            foreach($members->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
     }
     
-    function allByName() {
+    function allByName($limit, $start) {
+        $this->db->limit($limit, $start);
+        
         $this->db->order_by('last_name', 'asc');
         $members = $this->db->get('players');
-        return $members->result_array();
+        if($members->num_rows() > 0) {
+            foreach($members->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
     }
     
-    function allByPosition() {
+    function allByPosition($limit, $start) {
+        $this->db->limit($limit, $start);
+        
         $this->db->order_by('position', 'asc');
         $members = $this->db->get('players');
-        return $members->result_array();
+        if($members->num_rows() > 0) {
+            foreach($members->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
+    }
+    
+    function playerCount() {
+        return $this->db->get('players')->num_rows();
     }
     
 }
