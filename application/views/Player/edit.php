@@ -27,6 +27,11 @@
             <option value="Tight end">Tight end</option>
         </select>
     </label>
+<label>Description
+<textarea type="text" name="description" class="form-control" cols="40" rows="5">
+{description}
+</textarea>
+</label>
     <input type="file" name="userfile" class="form-group" />
     <input type="hidden" name="player_num" value="{player_num}" />
     <div class="row">

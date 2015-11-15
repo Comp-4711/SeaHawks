@@ -8,7 +8,7 @@
 ?>
 <tr>
     <td>{jersey}</td>
-    <td>{last_name}, {first_name}</td>
+    <td><a href="/player/{handletype}/{id}">{last_name}, {first_name}</a></td>
     <td>{position}</td>
     <td>{description}</td>
 </tr>

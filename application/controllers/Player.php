@@ -16,9 +16,8 @@ class Player extends Application
         // Set the initial layout parameters
         $this->load->library('table');
         $this->load->library('pagination');
-
         // Render the display
-        $rows = $this->layout("table", "name");
+        $rows = $this->layout($this->session->layout, $this->session->ordertype);
         $this->data['thetable'] = $this->table->generate($rows);
         if ($this->session->editmode) {
             $this->data['editmode'] = "Turn off Edit Mode";
@@ -27,39 +26,42 @@ class Player extends Application
             $this->data['editmode'] = "Turn on Edit Mode";
             $this->data['addbutton'] = "";
         }
-
+        $this->data['layout'] = $this->session->layout;
+        $this->data['ordertype'] = $this->session->ordertype;
         $this->data['pagebody'] = 'roster';
         $this->render();
     }
 
     private function layout($type, $order)
-    {        
+    {
         $cells = array();
-        
+
         // Set up pagination
         $config['base_url'] = '/player/index/';
         $config['total_rows'] = $this->players->playerCount();
-        $config['per_page'] = 12; 
+        $config['per_page'] = 12;
         $config['use_page_numbers'] = TRUE;
-        
-        $this->pagination->initialize($config); 
+
+        $this->pagination->initialize($config);
         $this->data['links'] = $this->pagination->create_links();
-        
-        // Retrieve players from model based on ordering
+
         $page = ($this->uri->segment(3)) ? ($this->uri->segment(3) - 1) * 12 : 0;
 
-        if ($order == "name") {
-            $roster = $this->players->allByName($config['per_page'], $page);
-        } else if ($order == "jersey") {
-            $roster = $this->players->allByJersey($config['per_page'], $page);
-        } else if ($order == "position") {
+
+        // Retrieve players from model based on ordering
+        if ($order == 2) {
             $roster = $this->players->allByPosition($config['per_page'], $page);
+        } else if ($order == 3) {
+            $roster = $this->players->allByJersey($config['per_page'], $page);
+        } else {
+            $roster = $this->players->allByName($config['per_page'], $page);
         }
-        
-        if ($type == 'table') {
+        $handletype = ['handletype' => $this->session->editmode ? 'edit' : 'view'];
+        if ($type == 2) {
             // Parse player properties into individual cells to render table
             foreach ($roster as $player) {
-                $cells[] = $this->parser->parse('_tablecell', (array)$player, true);
+                $cells[] = $this->parser->parse('_tablecell', array_merge((array)$player,$handletype), true);
+
             }
 
             // Set table parameters
@@ -76,10 +78,10 @@ class Player extends Application
             $this->table->set_heading('Jersey #', 'Name', 'Position', 'Description');
 
             $rows = $this->table->make_columns($cells, 1);
-        } else if ($type == 'gallery') {
+        } else {
             // Parse player properties into individual cells to render gallery
             foreach ($roster as $player) {
-                $cells[] = $this->parser->parse('_gallerycell', array_merge((array)$player,['handletype' => $this->session->editmode ? 'edit' : 'view']), true);
+                $cells[] = $this->parser->parse('_gallerycell', array_merge((array)$player, $handletype), true);
             }
 
             $parms = array(
@@ -135,11 +137,15 @@ class Player extends Application
         {
             $fileData = $this->upload->data();
             $player->image_name = $fileData['file_name'];
+            if($this->session->player->image_name != $player->image_name){
+                unlink("./img/roster/" . $this->session->player->image_name);
+            }
         }
         $player->jersey = $this->input->post('jerseyNumber');
         $player->first_name = $this->input->post('firstname');
         $player->last_name = $this->input->post('lastname');
         $player->position = $this->input->post('position');
+        $player->description = $this->input->post('description');
         $this->players->update($player);
         redirect('/player');
     }
@@ -158,8 +164,17 @@ class Player extends Application
             $this->session->editmode = 0;
         } else {
             $this->session->editmode = 1;
-
         }
+        redirect('/player');
+    }
+
+    function changelayout(){
+
+    }
+
+    function ordertype(){
+        $this->session->ordertype = $this->input->post('ordertype');
+        $this->session->layout = $this->input->post('layout');
         redirect('/player');
     }
 
