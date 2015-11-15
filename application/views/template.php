@@ -4,7 +4,7 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-    
+
     <script>
         $(document).ready(function(){
             $('a#button').click(function(){
@@ -12,7 +12,7 @@
             });
         });
     </script>
-    
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,7 +59,7 @@
                     <a href="/about">About</a>
                 </li>
                 <li>
-                    <a href="/roster">Roster</a>
+                    <a href="/player">Roster</a>
                 </li>
                 <li>
                     <a href="/league">Leagues</a>
