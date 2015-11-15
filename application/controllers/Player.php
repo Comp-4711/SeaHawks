@@ -30,10 +30,32 @@ class Player extends Application
     }
 
     function confirm_edit($player_num = null) {
-
+        redirect('/roster');
     }
 
-    function delete() {
+    function delete($player_num = null) {
+        redirect('/roster');
+    }
 
+    function cancel($player_num = null) {
+        redirect('/roster');
+    }
+
+    function editmode(){
+        if($this->session->editmode == 1){
+            $this->session->editmode = 0;
+        } else {
+            $this->session->editmode = 1;
+
+        }
+        redirect('/roster');
+    }
+
+    function handleplayer($player_num) {
+        if($this->session->editmode == 1){
+            redirect('/player/edit/' . $player_num);
+        } else {
+            redirect('/player/view/' . $player_num);
+        }
     }
 }
