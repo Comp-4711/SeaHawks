@@ -15,9 +15,10 @@ class Player extends Application
     {
         // Set the initial layout parameters
         $this->load->library('table');
+        $this->load->library('pagination');
 
         // Render the display
-        $rows = $this->layout("gallery", "name");
+        $rows = $this->layout("table", "name");
         $this->data['thetable'] = $this->table->generate($rows);
         if ($this->session->editmode) {
             $this->data['editmode'] = "Turn off Edit Mode";
@@ -32,17 +33,29 @@ class Player extends Application
     }
 
     private function layout($type, $order)
-    {
+    {        
         $cells = array();
+        
+        // Set up pagination
+        $config['base_url'] = '/player/index/';
+        $config['total_rows'] = $this->players->playerCount();
+        $config['per_page'] = 12; 
+        $config['use_page_numbers'] = TRUE;
+        
+        $this->pagination->initialize($config); 
+        $this->data['links'] = $this->pagination->create_links();
+        
         // Retrieve players from model based on ordering
-        if ($order == "name") {
-            $roster = $this->players->allByName();
-        } else if ($order == "jersey") {
-            $roster = $this->players->allByJersey();
-        } else if ($order == "position") {
-            $roster = $this->players->allByPosition();
-        }
+        $page = ($this->uri->segment(3)) ? ($this->uri->segment(3) - 1) * 12 : 0;
 
+        if ($order == "name") {
+            $roster = $this->players->allByName($config['per_page'], $page);
+        } else if ($order == "jersey") {
+            $roster = $this->players->allByJersey($config['per_page'], $page);
+        } else if ($order == "position") {
+            $roster = $this->players->allByPosition($config['per_page'], $page);
+        }
+        
         if ($type == 'table') {
             // Parse player properties into individual cells to render table
             foreach ($roster as $player) {
