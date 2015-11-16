@@ -12,51 +12,66 @@ class Players extends MY_Model {
         parent::__construct();
     }
 
-    // Retrieve all players in the roster, ordered by jersey number
+    // Retrieve specified number of players in the roster, ordered by jersey number
     // Each player has a name, jersey, associated image, position and biography
+    // Takes starting index and limit of records to return as parameters
     // Returns an array of all team members on the roster
     function allByJersey($limit, $start) {
-        $this->db->limit($limit, $start);
+        if($start >= 0) {
+            $this->db->limit($limit, $start);
 
-        $this->db->order_by('jersey', 'asc');
-        $members = $this->db->get('players');
-        if($members->num_rows() > 0) {
-            foreach($members->result() as $row) {
-                $data[] = $row;
+            $this->db->order_by('jersey', 'asc');
+            $members = $this->db->get('players');
+            if($members->num_rows() > 0) {
+                foreach($members->result() as $row) {
+                    $data[] = $row;
+                }
+                return $data;
             }
-            return $data;
         }
         return false;
     }
-
+    // Retrieve specified number of players in the roster, ordered by last name
+    // Each player has a name, jersey, associated image, position and biography
+    // Takes starting index and limit of records to return as parameters
+    // Returns an array of all team members on the roster
     function allByName($limit, $start) {
-        $this->db->limit($limit, $start);
+        if($start >= 0) {
+            $this->db->limit($limit, $start);
 
-        $this->db->order_by('last_name', 'asc');
-        $members = $this->db->get('players');
-        if($members->num_rows() > 0) {
-            foreach($members->result() as $row) {
-                $data[] = $row;
+            $this->db->order_by('last_name', 'asc');
+            $members = $this->db->get('players');
+            if($members->num_rows() > 0) {
+                foreach($members->result() as $row) {
+                    $data[] = $row;
+                }
+                return $data;
             }
-            return $data;
         }
         return false;
     }
 
+    // Retrieve specified number of players in the roster, ordered by position
+    // Each player has a name, jersey, associated image, position and biography
+    // Takes starting index and limit of records to return as parameters
+    // Returns an array of all team members on the roster
     function allByPosition($limit, $start) {
-        $this->db->limit($limit, $start);
+        if($start >= 0) {
+            $this->db->limit($limit, $start);
 
-        $this->db->order_by('position', 'asc');
-        $members = $this->db->get('players');
-        if($members->num_rows() > 0) {
-            foreach($members->result() as $row) {
-                $data[] = $row;
+            $this->db->order_by('position', 'asc');
+            $members = $this->db->get('players');
+            if($members->num_rows() > 0) {
+                foreach($members->result() as $row) {
+                    $data[] = $row;
+                }
+                return $data;
             }
-            return $data;
         }
         return false;
     }
 
+    // Get total number of players stored in the database
     function playerCount() {
         return $this->db->get('players')->num_rows();
     }
@@ -89,7 +104,7 @@ class Players extends MY_Model {
         if(!in_array($player->position, ['Quarterback','Punter','Wide receiver','Running back','Cornerback','Free safety','Strong safety','Fullback','Outside Linebacker','Middle Linebacker','Defensive end','Guard Tackle','Tight end'])){
             $error = array_merge($error, ['position_error' => 'Position is invalid.']);
         }
-        $jersey_query = "select jersey from players where jersey = " . $player->jersey;
+        $jersey_query = "select jersey from players where jersey = " . $player->jersey . " AND id != " . $player->id;
         $jersey_data = $this->db->query($jersey_query);
 
         if($jersey_data->num_rows() > 0){

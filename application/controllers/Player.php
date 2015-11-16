@@ -14,11 +14,12 @@ class Player extends Application
     public function index()
     {
         $this->players->session_load();
-
         // Set the initial layout parameters
+        // Load dependencies
         $this->load->library('table');
         $this->load->library('pagination');
-        // Render the display
+
+        // Check session data to determine which layout/ordering/edit mode to use
         $rows = $this->layout($this->session->layout, $this->session->ordertype);
         $this->data['thetable'] = $this->table->generate($rows);
         if ($this->session->editmode) {
@@ -28,6 +29,7 @@ class Player extends Application
             $this->data['editmode'] = "Turn on Edit Mode";
             $this->data['addbutton'] = "";
         }
+        // Render the display
         $this->data['layout'] = $this->session->layout;
         $this->data['ordertype'] = $this->session->ordertype;
         $this->data['pagebody'] = 'roster';
@@ -43,6 +45,16 @@ class Player extends Application
         $config['total_rows'] = $this->players->playerCount();
         $config['per_page'] = 12;
         $config['use_page_numbers'] = TRUE;
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['cur_tag_open'] = ' <li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
 
         $this->pagination->initialize($config);
         $this->data['links'] = $this->pagination->create_links();
@@ -63,18 +75,17 @@ class Player extends Application
             // Parse player properties into individual cells to render table
             foreach ($roster as $player) {
                 $cells[] = $this->parser->parse('_tablecell', array_merge((array)$player,$handletype), true);
-
             }
 
             // Set table parameters
             $parms = array(
-                'table_open' => '<table class="gallery">',
-                'heading_row_start' => '<tr>',
-                'heading_row_end' => '</tr>',
-                'heading_cell_end' => '<th>',
+                'table_open' => '<table class="table table-bordered table-hover">',
+                'heading_row_start' => '',
+                'heading_row_end' => '',
+                'heading_cell_start' => '<th class="nowrap">',
                 'heading_cell_end' => '</th>',
-                'cell_start' => '<td class="oneimage">',
-
+                'cell_start' => '',
+                'cell_alt_start' => '',
             );
             $this->table->set_template($parms);
             $this->table->set_heading('Jersey #', 'Name', 'Position', 'Description');
@@ -94,6 +105,7 @@ class Player extends Application
             $this->table->set_template($parms);
             $rows = $this->table->make_columns($cells, 3);
         }
+        // Return rows for display
         return $rows;
     }
 
@@ -116,6 +128,10 @@ class Player extends Application
         $this->data['position_error'] = "";
         if($errors == null){
             $this->session->player = $this->players->get($player_num);
+            if($this->session->player == null){
+                if($player_num == null)
+                    redirect('/player/add');
+            }
         } else {
             $this->session->unset_userdata('temperror');
             foreach($errors as $key => $value)
@@ -126,7 +142,6 @@ class Player extends Application
         $this->data = array_merge($this->data, (array)$this->session->player);
         $this->render();
     }
-
 
     function edit_confirm() {
         $player = $this->players->get($this->input->post('player_num'));
@@ -158,7 +173,7 @@ class Player extends Application
             redirect('/player');
         } else {
             $this->session->temperror = $errors;
-            redirect('player/edit/' . $player_num);
+            redirect('player/edit/' . $player->id);
         }
     }
 
@@ -168,8 +183,14 @@ class Player extends Application
     }
 
     function cancel($player_num = null) {
+        //Checks if record is empty, deletes it if it is
+        if(count($this->players->validate($this->session->player)) == 4){
+            $this->players->delete($this->session->player->id);
+            $this->session->unset_userdata('player');
+        }
         redirect('/player');
     }
+
     function view($player_num = null) {
         $player = $this->players->get($player_num);
         if($player == null){

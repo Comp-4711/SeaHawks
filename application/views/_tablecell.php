@@ -6,9 +6,7 @@
  * Time: 11:48 PM
  */
 ?>
-<tr>
-    <td>{jersey}</td>
-    <td><a href="/player/{handletype}/{id}">{last_name}, {first_name}</a></td>
-    <td>{position}</td>
+    <td style="text-align:center;">{jersey}</td>
+    <td class="oneline"><a href="/player/{handletype}/{id}">{last_name}, {first_name}</a></td>
+    <td class="oneline">{position}</td>
     <td>{description}</td>
-</tr>
