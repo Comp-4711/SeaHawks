@@ -13,10 +13,12 @@ class Player extends Application
     }
     public function index()
     {
+        $this->players->session_load();
+        // Set the initial layout parameters
         // Load dependencies
         $this->load->library('table');
         $this->load->library('pagination');
-        
+
         // Check session data to determine which layout/ordering/edit mode to use
         $rows = $this->layout($this->session->layout, $this->session->ordertype);
         $this->data['thetable'] = $this->table->generate($rows);
@@ -87,7 +89,7 @@ class Player extends Application
             );
             $this->table->set_template($parms);
             $this->table->set_heading('Jersey #', 'Name', 'Position', 'Description');
-            
+
             $rows = $this->table->make_columns($cells, 1);
         } else {
             // Parse player properties into individual cells to render gallery
@@ -119,13 +121,27 @@ class Player extends Application
     function edit($player_num = null) {
         if($player_num == null)
             redirect('/player/add');
-        $this->session->player = $this->players->get($player_num);
+        $errors = $this->session->temperror;
+        $this->data['first_name_error'] = "";
+        $this->data['last_name_error'] = "";
+        $this->data['jersey_error'] = "";
+        $this->data['position_error'] = "";
+        if($errors == null){
+            $this->session->player = $this->players->get($player_num);
+            if($this->session->player == null){
+                if($player_num == null)
+                    redirect('/player/add');
+            }
+        } else {
+            $this->session->unset_userdata('temperror');
+            foreach($errors as $key => $value)
+                $this->data[$key] = $value;
+        }
         $this->data['player_num'] = $player_num;
         $this->data['pagebody'] = 'player/edit';
         $this->data = array_merge($this->data, (array)$this->session->player);
         $this->render();
     }
-
 
     function edit_confirm() {
         $player = $this->players->get($this->input->post('player_num'));
@@ -139,27 +155,26 @@ class Player extends Application
 
         if ( ! $this->upload->do_upload())
         {
-            if($player->image_name == null){
-                $error = array('error' => $this->upload->display_errors());
-                die("upload Error");
-                // $this->load->view('upload_form', $error);
-            }
         }
         else
         {
             $fileData = $this->upload->data();
             $player->image_name = $fileData['file_name'];
-            if($this->session->player->image_name != $player->image_name){
-                unlink("./img/roster/" . $this->session->player->image_name);
-            }
         }
-        $player->jersey = $this->input->post('jerseyNumber');
-        $player->first_name = $this->input->post('firstname');
-        $player->last_name = $this->input->post('lastname');
-        $player->position = $this->input->post('position');
-        $player->description = $this->input->post('description');
-        $this->players->update($player);
-        redirect('/player');
+        $player->jersey = htmlentities($this->input->post('jerseyNumber'));
+        $player->first_name = htmlentities($this->input->post('firstname'));
+        $player->last_name = htmlentities($this->input->post('lastname'));
+        $player->position = htmlentities($this->input->post('position'));
+        $player->description = htmlentities($this->input->post('description'));
+        $this->session->player = $player;
+        $errors = $this->players->validate($player);
+        if($errors === true){
+            $this->players->update($player);
+            redirect('/player');
+        } else {
+            $this->session->temperror = $errors;
+            redirect('player/edit/' . $player->id);
+        }
     }
 
     function delete($player_num = null) {
@@ -168,7 +183,22 @@ class Player extends Application
     }
 
     function cancel($player_num = null) {
+        //Checks if record is empty, deletes it if it is
+        if(count($this->players->validate($this->session->player)) == 4){
+            $this->players->delete($this->session->player->id);
+            $this->session->unset_userdata('player');
+        }
         redirect('/player');
+    }
+
+    function view($player_num = null) {
+        $player = $this->players->get($player_num);
+        if($player == null){
+            redirect('/player');
+        }
+        $this->data['pagebody'] = 'player/view';
+        $this->data = array_merge($this->data, (array)$player);
+        $this->render();
     }
 
     function editmode(){
@@ -177,24 +207,14 @@ class Player extends Application
         } else {
             $this->session->editmode = 1;
         }
+        $this->players->session_save();
         redirect('/player');
-    }
-
-    function changelayout(){
-
     }
 
     function ordertype(){
         $this->session->ordertype = $this->input->post('ordertype');
         $this->session->layout = $this->input->post('layout');
+        $this->players->session_save();
         redirect('/player');
-    }
-
-    function handleplayer($player_num) {
-        if($this->session->editmode == 1){
-            redirect('/player/edit/' . $player_num);
-        } else {
-            redirect('/player/view/' . $player_num);
-        }
     }
 }
