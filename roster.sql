@@ -26,6 +26,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `players`
 --
 
+CREATE TABLE IF NOT EXISTS `session` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `editmode` tinyint(1) DEFAULT NULL,
+  `layout` int(11) DEFAULT NULL,
+  `ordertype` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5;
+
+
 CREATE TABLE IF NOT EXISTS `players` (
   `id` int(11) NOT NULL,
   `jersey` int(11) NOT NULL,

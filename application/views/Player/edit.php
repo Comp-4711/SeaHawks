@@ -1,5 +1,10 @@
 <h1>Edit Player</h1>
-
+<div class="errors" style="color:red;">
+    <div class="first_name_error">{first_name_error}</div>
+    <div class="last_name_error">{last_name_error}</div>
+    <div class="jersey_error">{jersey_error}</div>
+    <div class="position_error">{position_error}</div>
+</div>
 <form method="Post" action="/player/edit_confirm" name="editForm" enctype="multipart/form-data">
     <label>First Name
         <input type="text" name="firstname" class="form-group" value="{first_name}"/>
