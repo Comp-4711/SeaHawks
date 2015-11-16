@@ -1,0 +1,1 @@
+<a id="buttonAdd" title="button" class="btn btn-default" href="/player/add">Add Player</a>

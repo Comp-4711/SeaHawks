@@ -1,5 +1,5 @@
 
-<table class="table table-bordered">
+<table class="table table-bordered table-hover">
     <thead>
     <th class="tablesub" colspan="4">American Football Conference - 2015 Regular Season</th>
     <tr>

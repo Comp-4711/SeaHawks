@@ -1,3 +1,7 @@
+body{
+    font-family: roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 .navbar {
     background-color: white;
 }
@@ -25,4 +29,76 @@
 
 .table .tablesub{
     background-color: #4b8d27;
+}
+
+#buttonAdd {
+    float: right;
+}
+
+#buttonEdit {     
+    margin-left: 5px;
+    /*background-color: lightblue;*/
+    float: right;
+}
+
+.oneimage {
+    padding: 2em;
+    width: 300px;
+    text-align: center;
+}
+
+.nowrap {
+    min-width: 80px;
+}
+
+.oneline {
+    min-width: 150px;
+}
+
+.roster-select{
+    width: 12%;
+    display: inline-block;
+    margin-bottom: 20px;
+    
+}
+
+select option {
+    margin:40px;
+    text-shadow:0 1px 0 rgba(0,0,0,0.4);
+}
+
+.table-hover>tbody>tr:hover {
+    background-color: #e5ecff;
+}
+
+.btn-default:hover {
+    background-color: #e5ecff;
+}
+
+section {
+    padding: 30px;
+}
+
+.rounded{
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid;
+}
+
+.rounded-header{
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0px 0px;
+    border-style: solid;
+    border-bottom:none;
+}
+
+.under-header{
+    border-radius: 0 0 4px 4px;
+    border-top:none;
+}
+
+#AddEditPlayer {
+    background-color: black;
 }

@@ -12,7 +12,7 @@ class Application extends CI_Controller {
     protected $choices = array(// our menu navbar
         'Home' => '/',
         'About' => '/about',
-        'Roster' => '/roster',
+        'Roster' => '/player',
         'League' => '/league'
     );
 
