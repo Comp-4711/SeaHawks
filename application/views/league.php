@@ -1,4 +1,16 @@
-
+<form action="/player/ordertype" method="post" >
+    <select name="ordertype" class="form-control roster-select">
+        <option value="1">City</option>
+        <option value="2">Team</option>
+        <option value="3">Standing</option>
+    </select>
+    <select name="layout" class="form-control roster-select">
+        <option value="1">League</option>
+        <option value="2">Conference</option>
+        <option value="2">Division</option>
+    </select>
+    <input class= "btn btn-default" type="submit" value="Go" />
+</form>
 <table class="table table-bordered table-hover">
     <thead>
     <th class="tablesub" colspan="4">American Football Conference - 2015 Regular Season</th>

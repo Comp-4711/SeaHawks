@@ -1,5 +1,10 @@
 <?php
     class Teams extends MY_Model {
+        
+        function __construct($filename = "league.xml") {
+            parent::__construct();
+        }
+                
         // Set up league teams info
         protected $teams = array(
             array("teamcode" => "NE", "name"=>"New England Patriots", "conference" => "AFC", "region"=>"East", "win"=>3, "loss"=>0, "tie"=>0),
@@ -35,9 +40,6 @@
             array("teamcode" => "SF", "name"=>"San Francisco 49ers", "conference" => "NFC", "region"=>"West", "win"=>1, "loss"=>2, "tie"=>0),
             array("teamcode" => "SEA", "name"=>"Seattle Seahawks", "conference" => "NFC", "region"=>"West", "win"=>1, "loss"=>2, "tie"=>0)
         );
-        function __construct(){
-            parent::__construct();
-        }
 
         // Returns all teams
         function all(){
