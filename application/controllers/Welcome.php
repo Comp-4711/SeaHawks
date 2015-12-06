@@ -20,7 +20,15 @@ class Welcome extends Application {
 	 */
 	public function index()
 	{
-            $this->data['pagebody']= 'welcome';
-            $this->render();
-	}
+		$this->data['pagebody']= 'welcome';
+        $teams = $this->teams->all();
+        for($i = 0; $i < count($teams); $i++){
+            if($teams[$i]['teamcode'] == 'SEA'){
+                unset($teams[$i]);
+            }
+        }
+        $this->data['teamList'] = $teams;
+
+		$this->render();
+    }
 }
