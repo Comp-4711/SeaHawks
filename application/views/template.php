@@ -68,7 +68,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="/scores">Update Scores</a>
+                    <a href="/score">Update Scores</a>
                 </li>
             </ul>
         </div>
