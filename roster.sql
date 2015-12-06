@@ -25,6 +25,8 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `players`
 --
+DROP TABLE IF EXISTS session;
+DROP TABLE IF EXISTS players;
 
 CREATE TABLE IF NOT EXISTS `session` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
