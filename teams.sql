@@ -25,6 +25,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `teams`
 --
+DROP TABLE IF EXISTS teams;
 
 CREATE TABLE IF NOT EXISTS `teams` (
   `id` int(11) NOT NULL,
