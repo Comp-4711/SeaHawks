@@ -1,3 +1,17 @@
+<div>
+<form>
+    <select>
+        {teamList}
+        <option value="{teamcode}">{name}</option>
+        {/teamList}
+    </select>
+    <button>Predict</button>
+</form>
+    <div>
+
+    </div>
+
+</div>
 <div class="container rounded-header" style="background:#0e0e52">
 <h1 class="section-heading" style="margin:20px 0; margin-left:20px;color:#fff;font-weight:light;">Seahawks</h1>
 </div>
