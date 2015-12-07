@@ -55,6 +55,10 @@ body{
     min-width: 150px;
 }
 
+.onelineleague {
+    min-width: 180px;
+}
+
 .roster-select{
     width: 12%;
     display: inline-block;
@@ -101,4 +105,12 @@ section {
 
 #AddEditPlayer {
     background-color: black;
+}
+
+.leagueheader {
+    background-color: #4b8d27;
+    color: white;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    padding: 8px;
 }

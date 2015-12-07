@@ -1,12 +1,12 @@
 <?php
     class Teams extends MY_Model {
         
-        function __construct($filename = "league.xml") {
+        function __construct() {
             parent::__construct();
         }
                 
         // Set up league teams info
-        protected $teams = array(
+        /*protected $teams = array(
             array("teamcode" => "NE", "name"=>"New England Patriots", "conference" => "AFC", "region"=>"East", "win"=>3, "loss"=>0, "tie"=>0),
             array("teamcode" => "NYJ", "name"=>"Buffalo Bills", "conference" => "AFC", "region"=>"East", "win"=>2, "loss"=>1, "tie"=>0),
             array("teamcode" => "BUF", "name"=>"New York Jets", "conference" => "AFC", "region"=>"East", "win"=>2, "loss"=>1, "tie"=>0),
@@ -39,15 +39,98 @@
             array("teamcode" => "STL", "name"=>"St. Louis Rams", "conference" => "NFC", "region"=>"West", "win"=>1, "loss"=>2, "tie"=>0),
             array("teamcode" => "SF", "name"=>"San Francisco 49ers", "conference" => "NFC", "region"=>"West", "win"=>1, "loss"=>2, "tie"=>0),
             array("teamcode" => "SEA", "name"=>"Seattle Seahawks", "conference" => "NFC", "region"=>"West", "win"=>1, "loss"=>2, "tie"=>0)
-        );
+        );*/
 
-        // Returns all teams
-        function all(){
-            return $this->teams;
+        // Returns all teams sorted by the passed-in argument
+        // Used in the league display
+        function getLeague($sort) {
+            if($sort == 'net_points') {
+                $this->db->order_by($sort, 'desc');
+            } else {
+                $this->db->order_by($sort, 'asc');
+            }
+                
+            $teams = $this->db->get('teams');
+            if($teams->num_rows() > 0) {
+                foreach($teams->result() as $row) {
+                    $data[] = $row;
+                }
+                return $data;
+            }
+            return false;
         }
-
-        // Returns all teams associated with a passed in conference and region
-        function getRegion($conference, $region){
+        
+        // Get all teams for a specified conference
+        function getConference($sort, $conference) {
+            if($sort == 'net_points') {
+                $this->db->order_by($sort, 'desc');
+            } else {
+                $this->db->order_by($sort, 'asc');
+            }
+                
+            $teams = $this->db->get('teams');
+            if($teams->num_rows() > 0) {
+                foreach($teams->result() as $row) {
+                    if($row->conference == $conference) {
+                        $data[] = $row;
+                    }
+                }
+                return $data;
+            }
+            return false;
+        }
+        
+        // Get all teams for a specified division
+        function getDivision($sort, $division) {
+            if($sort == 'net_points') {
+                $this->db->order_by($sort, 'desc');
+            } else {
+                $this->db->order_by($sort, 'asc');
+            }
+                
+            $teams = $this->db->get('teams');
+            if($teams->num_rows() > 0) {
+                foreach($teams->result() as $row) {
+                    if($row->division == $division) {
+                        $data[] = $row;
+                    }
+                }
+                return $data;
+            }
+            return false;
+        }
+        
+        // Get all conferences to set up conference view
+        function conferences() {
+            $query = "SELECT DISTINCT conference FROM teams";
+            $result = $this->db->query($query);
+            return $result->result();
+        }
+        
+        // Get all divisions to set up division view
+        function divisions() {
+            $query = "SELECT DISTINCT division FROM teams";
+            $result = $this->db->query($query);
+            return $result->result();
+        }
+        /*function session_save() {
+            $this->db->insert('session', ['ordertype' => $this->session->ordertype, 'layout' => $this->session->layout, 'editmode' => $this->session->editmode]);
+        }
+        
+        function session_load() {
+            // Selects most recent record
+            $query ="select * from session order by id DESC limit 1";
+            $session = $this->db->query($query);
+            if($session->num_rows() > 0){
+                $this->session->ordertype = $session->result()[0]->ordertype;
+                $this->session->layout = $session->result()[0]->layout;
+                $this->session->editmode = $session->result()[0]->editmode;
+            }
+            // }
+        }*/
+        
+        // Returns all teams associated with a passed in conference and division
+        /*function getRegion($conference, $region){
             $teams = array();
             foreach($this->teams as $team){
                 if($team['conference'] == $conference && $team['region'] == $region){
@@ -65,7 +148,7 @@
                     return $team;
                 }
             }
-        }
+        }*/
 
     }
 
