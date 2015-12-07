@@ -17,5 +17,12 @@
             $this->data['nfcw'] = $this->teams->getRegion("NFC","West");
             $this->render();
         }
+        
+        function ordertype(){
+            $this->session->ordertype = $this->input->post('ordertype');
+            $this->session->layout = $this->input->post('layout');
+            $this->players->session_save();
+            redirect('/league');
+        }
     }
  ?>
