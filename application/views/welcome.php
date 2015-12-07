@@ -4,7 +4,7 @@
     <span style="color:white; margin-left: 10px; font-size: 1.5em; font-weight: 300;">vs</span>
     <select style="margin:0 10px 0 10px; width: auto;" class="form-control roster-select" id="selectOpponent">
         {teamList}
-        <option value="{teamcode}">{name}</option>
+        <option value="{code}">{name}</option>
         {/teamList}
     </select>
     <button class="btn btn-default" id="buttonPredict">Predict</button>
@@ -41,6 +41,7 @@
         $('#buttonPredict').click(function () {
 
             var opponent = $('#selectOpponent').val();
+            console.log(opponent);
             var opponentTeam = $('#selectOpponent option:selected').text();
             console.log(opponentTeam);
             $.ajax({

@@ -40,7 +40,7 @@ class Welcome extends Application {
         $opponentTeam = $this->input->post('opponentTeam');
 
         $all = $this->db->order_by('date', 'DESC')->get_where('scores', "(home = 'SEA') OR (away = 'SEA')");
-        $vsOpponent = $this->db->order_by('date', 'DESC')->limit(5)->get_where('scores', "((home= 'SEA' OR home = '$opponent') AND (away = 'SEA' OR away = '$opponent'))");
+        $vsOpponent = $this->db->order_by('date', 'DESC')->limit(5)->get_where('scores', "(home= 'SEA' OR home = '$opponent') AND (away = 'SEA' OR away = '$opponent')");
 
         $winAll = 0;
         $total = count($all->result());
@@ -72,9 +72,16 @@ class Welcome extends Application {
             $opponentAvg = $winOpponent / $totalOpponent;
         }
 
+        $winPercent = ((0.7 * ($winAvg)) + (0.2 * $fiveAvg) + (0.1 * $opponentAvg)) * 100;
+        $winPercent = number_format((float)$winPercent, 2, '.', '');
 
-        $winPercent = 100 * 0.7 * $winAvg + 0.2 * $fiveAvg + 0.1 * $opponentAvg;
-        $winPercent=number_format((float)$winPercent, 2, '.', '');
+        $data = array(
+            'opponent' => $opponentTeam,
+            'prediction' => $winPercent,
+            'totalAvg' =>number_format((float)$winAvg*100, 2, '.', ''),
+            'recentAvg' =>number_format((float)$fiveAvg*100, 2, '.', ''),
+            'vsOpponent' =>number_format((float)$opponentAvg*100, 2, '.', '')
+        );
 
 
 
@@ -83,7 +90,8 @@ class Welcome extends Application {
             'prediction' => $winPercent,
             'totalAvg' =>number_format((float)$winAvg*100, 2, '.', ''),
             'recentAvg' =>number_format((float)$fiveAvg*100, 2, '.', ''),
-            'vsOpponent' =>number_format((float)$opponentAvg*100, 2, '.', '')
+            'vsOpponent' =>number_format((float)$opponentAvg*100, 2, '.', ''),
+            'gamesOpponent' => $totalOpponent
         );
 
         $this->parser->parse('_prediction', $data);
