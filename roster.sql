@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS session;
 DROP TABLE IF EXISTS players;
 DROP TABLE IF EXISTS scorehistory;
+DROP TABLE IF EXISTS scores;
 DROP TABLE IF EXISTS teams;
 
 CREATE TABLE IF NOT EXISTS `session` (
@@ -68,6 +69,16 @@ CREATE TABLE IF NOT EXISTS `teams` (
   `net_points` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `scores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number` int(11) NOT NULL,
+  `away` varchar(8) NOT NULL,
+  `home` varchar(8) NOT NULL,
+  `date` varchar(16) NOT NULL,
+  `score` varchar(16) NOT NULL,
+  `winner` varchar(8) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 --
 -- Dumping data for table `players`
 --
