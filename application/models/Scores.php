@@ -22,9 +22,10 @@ class Scores extends MY_Model {
             echo $this->xmlrpc->display_error();
             echo '<br/>' . var_dump($this->xmlrpc->response) . '<br/>';
         } else {
-            $data = $this->xmlrpc->display_response();
-            // die(var_dump($this->findWinner($data)));
-            $this->db->insert_batch('scores', $this->findWinner($data));
+            $data = $this->findWinner($this->xmlrpc->display_response());
+            if(!empty($data)){
+                $this->db->insert_batch('scores', $data);
+            }
         }
     }
 
