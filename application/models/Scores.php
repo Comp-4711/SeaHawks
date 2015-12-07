@@ -17,7 +17,7 @@ class Scores extends MY_Model {
         $this->xmlrpc->server('http://nfl.jlparry.com/rpc', 80);
         $this->xmlrpc->method('since');
         $this->xmlrpc->request(array($this->recentDate()));
-        // $this->db->insert('scorehistory', array('date'=> date('Y-m-d')));
+        $this->db->insert('scorehistory', array('date'=> date('Y-m-d')));
         if(!$this->xmlrpc->send_request()) {
             echo $this->xmlrpc->display_error();
             echo '<br/>' . var_dump($this->xmlrpc->response) . '<br/>';
