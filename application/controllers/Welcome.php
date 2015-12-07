@@ -21,9 +21,10 @@ class Welcome extends Application {
 	public function index()
 	{
 		$this->data['pagebody']= 'welcome';
-        $teams = $this->teams->all();
+        $teams = $this->teams->getLeague('name');
+		// die(var_dump($teams));
         for($i = 0; $i < count($teams); $i++){
-            if($teams[$i]['teamcode'] == 'SEA'){
+            if($teams[$i]->code == 'SEA'){
                 unset($teams[$i]);
             }
         }
