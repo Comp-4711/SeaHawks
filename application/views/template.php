@@ -14,6 +14,8 @@
         });
     </script>
 
+
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,6 +66,11 @@
                 </li>
                 <li>
                     <a href="/league">Leagues</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/score">Update Scores</a>
                 </li>
             </ul>
         </div>
