@@ -1,17 +1,18 @@
 <div>
-<form>
-    <select>
+    <select id="selectOpponent">
         {teamList}
         <option value="{teamcode}">{name}</option>
         {/teamList}
     </select>
-    <button>Predict</button>
-</form>
-    <div>
+    <button class="btn btn-default" id="buttonPredict">Predict</button>
+
+
+    <div id="divPredict">
 
     </div>
-
 </div>
+
+
 <div class="container rounded-header" style="background:#0e0e52">
 <h1 class="section-heading" style="margin:20px 0; margin-left:20px;color:#fff;font-weight:light;">Seahawks</h1>
 </div>
@@ -33,3 +34,28 @@
     support from a wide geographical area, including Oregon, Montana, Idaho, and Alaska, as well as Canadian fans in British Columbia and Alberta.[5]
     </p
 </div>
+
+
+<script>
+    $(document).ready(function() {
+        $('#buttonPredict').click(function () {
+
+            var opponent = $('#selectOpponent').val();
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo site_url('welcome/predict/'); ?>',
+                data: {'opponent': opponent},
+                success: function(response)
+                {
+                    $('#divPredict').html(response);
+                },
+                error: function(err) {
+                    console.log(err);
+
+                }
+            });
+        });
+    });
+</script>
+

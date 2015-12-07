@@ -28,8 +28,15 @@ class Welcome extends Application {
             }
         }
         $this->data['teamList'] = $teams;
-
 		$this->render();
 
+    }
+
+    public function predict()
+    {
+        $data = array(
+            'opponent' => $this->input->post('opponent')
+        );
+        $this->parser->parse('_prediction', $data);
     }
 }
